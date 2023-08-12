@@ -1,0 +1,66 @@
+stages:
+  - test
+  - deploy
+
+# Variables
+variables:
+  POSTGRES_DB: "clevrpos"
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "Echodelta541"
+  POSTGRES_HOST_AUTH_METHOD: "trust"
+  DB_HOST: 127.0.0.1
+  STAGING_EB_ENVIRONMENT: "[FILL HERE]"
+  PRODUCTION_EB_ENVIRONMENT: "[FILL HERE]"
+
+# Speed up builds
+cache:
+  key: $CI_COMMIT_REF_NAME
+  paths:
+    - vendor
+    - public
+
+test:
+  stage: test
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /\[skip[ _-]tests?\]/i
+  services:
+    - postgres:12.2-alpine
+  image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
+  script:
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress #--ignore-platform-reqs
+  artifacts:
+    paths:
+      - ./storage/logs
+    expire_in: 7 days
+    when: always
+
+deploy to staging:
+  stage: deploy
+  environment: staging
+  image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
+  before_script:
+    - mkdir ~/.aws/
+    - touch ~/.aws/credentials
+    - printf "[eb-cli]\naws_access_key_id = %s\naws_secret_access_key = %s\n" "$AWS_ACCESS_KEY_ID" "$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+  script:
+    - git checkout staging
+    - eb deploy $STAGING_EB_ENVIRONMENT
+  only:
+    - staging
+  when: on_success
+
+deploy to production:
+  stage: deploy
+  environment: production
+  image: edbizarro/gitlab-ci-pipeline-php:8.0-alpine
+  before_script:
+    - mkdir ~/.aws/
+    - touch ~/.aws/credentials
+    - printf "[eb-cli]\naws_access_key_id = %s\naws_secret_access_key = %s\n" "$AWS_ACCESS_KEY_ID" "$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+  script:
+    - git checkout master
+    - eb deploy $PRODUCTION_EB_ENVIRONMENT
+  only:
+    - master
+  when: manual

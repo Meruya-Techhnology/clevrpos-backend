@@ -1,0 +1,70 @@
+<?php
+namespace DummyNamespace;
+
+use Illuminate\Http\Request;
+use DummyRootNamespaceHttp\Controllers\Controller;
+use App\Models\BaseResponse;
+
+class DummyClass extends Controller
+{
+    /// Remove the comment to use standarized response format
+
+    /// private $baseResponse;
+    /// public function __construct()
+    /// {
+    ///     $this->baseResponse = new BaseResponse();
+    /// }
+
+    /**
+     * @OA\Get(
+     *     path="/sample/{category}/things",
+     *     operationId="/sample/category/things",
+     *     tags={"yourtag"},
+     *     @OA\Parameter(
+     *         name="category",
+     *         in="path",
+     *         description="The category parameter in path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="criteria",
+     *         in="query",
+     *         description="Some optional other parameter",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Response description",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Error: Forbiden access. When rest-api client isn't authorized to use this API",
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Error: Internal server error. This is happen when server had internal error",
+     *     ),
+     * )
+     */
+
+    /// This is generated method, delete if you doesn't need it
+    public function Create(Request $request){
+        /// Write your code here
+    }
+    public function Update(Request $request){
+        /// Write your code here
+    }
+    public function Delete(Request $request){
+        /// Write your code here
+    }
+    public function Select(Request $request){
+        /// Write your code here
+    }
+}

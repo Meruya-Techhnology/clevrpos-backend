@@ -1,0 +1,33 @@
+<?php
+namespace DummyNamespace;
+use Illuminate\Database\Eloquent\Model;
+
+class DummyClass extends Model
+{
+    
+    /**
+     * Remove comment to use variable bellow
+     *
+     * @var String
+     */
+    // protected $table = 'user_confirmation';
+    // protected $connection = 'mysql';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        ///Write fillable table field here
+    ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        ///Write hidden table field here
+    ];
+}
