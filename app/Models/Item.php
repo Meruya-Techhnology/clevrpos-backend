@@ -13,7 +13,6 @@ class Item extends Model
      *              @OA\Property(property="name", type="string", description="Item name", example="Banoffee"),
      *              @OA\Property(property="category_id", type="integer", description="Item category id", example=1),
      *              @OA\Property(property="created_at", type="string", description="Created timestamp", example="2021-01-29T21:20:06.000000Z"),
-     *              @OA\Property(property="name", type="string", description="Item name", example="Banoffee"),
      *              @OA\Property(property="tag", type="string", description="Item tag", example="#banoffee"),
      *              @OA\Property(property="item_detail", type="array", description="Item details",
      *                  @OA\Items(ref="#/components/schemas/GetItemDetail"),
